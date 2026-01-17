@@ -75,7 +75,10 @@ def test_uuid7_future() -> None:
     with freeze_time(past_target):
         assert time_from_uuid7(uuid.uuid7()) == past_target
 
-
+@pytest.mark.skipif(
+    sys.version_info < (3, 14),
+    reason="Only valid on Python 3.14+",
+)
 def test_uuid7_past() -> None:
     """
     Test that we can go forward in time after setting some time in the past.
